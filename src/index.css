@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* SupaMax Live - Dark Smart TV Theme */
+    --background: 0 0% 4.3%;          /* #0B0B0B */
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 211 100% 52%;          /* #0A84FF */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 211 100% 65%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 211 100% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 14%;
+    --ring: 211 100% 52%;
+
+    --radius: 0.85rem;
+
+    --live-red: 358 85% 55%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(211 100% 52% / 0.25), hsl(0 0% 4.3%) 70%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 9%), hsl(0 0% 6%));
+    --gradient-fade-bottom: linear-gradient(180deg, transparent, hsl(0 0% 4.3%));
+
+    --shadow-focus: 0 0 0 3px hsl(211 100% 52%), 0 0 32px hsl(211 100% 52% / 0.55), 0 12px 40px -8px hsl(211 100% 52% / 0.6);
+    --shadow-tile: 0 8px 24px -8px hsl(0 0% 0% / 0.6);
+
+    --transition-focus: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 200ms ease, opacity 200ms ease;
+
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 80%;
+    --sidebar-primary: 211 100% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 211 100% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body, #root {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+  }
+
+  body {
+    overscroll-behavior: auto;
+    overflow-x: hidden;
+  }
+
+/* Hide scrollbars on horizontal rails */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@layer components {
+  .tv-focus {
+    @apply outline-none transition-[transform,box-shadow,opacity] duration-200;
+  }
+  .tv-focus[data-focused="true"],
+  .tv-focus:focus-visible {
+    box-shadow: var(--shadow-focus);
+    transform: scale(1.06);
+    z-index: 5;
+    position: relative;
+  }
+  .live-dot {
+    @apply inline-block h-2 w-2 rounded-full bg-[hsl(var(--live-red))];
+    box-shadow: 0 0 10px hsl(var(--live-red));
+    animation: livePulse 1.6s ease-in-out infinite;
+  }
+  .glass {
+    background: hsl(0 0% 100% / 0.06);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid hsl(0 0% 100% / 0.08);
+    box-shadow: 0 8px 32px -8px hsl(0 0% 0% / 0.5);
+  }
+  .glass-strong {
+    background: hsl(0 0% 8% / 0.65);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid hsl(0 0% 100% / 0.1);
+  }
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-overlay-fade { animation: fadeOut 2.8s ease forwards; }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
